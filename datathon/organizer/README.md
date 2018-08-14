@@ -20,8 +20,20 @@ The idea is to upload the four datasets to the `physionet-data` project:
 4. eICU
 
 There will be a storage bucket containing the compressed csv files, and a
-bigquery database for each of these datasets. The data is separated in this
-manner due to the access system we have decided for them.
+bigquery database for each of these datasets. The system is set up so that
+authorized data readers are able to set up their own projects, and under
+that project, query the data in `physionet-data` at their own expense
+(requester pays).
+
+The data is separated in this manner due to the access system we have decided
+for them:
+- Access to mimiciii_demo only requires a click agreement.
+- Access to mimiciii_clinical requires a certified training course, and
+  authorization by Ken Pierce. But we have limited duration events that give
+  temporary access to it in a less cumbersome manner. We do not provide notes
+  in this way however, so the notes are separated from the rest of the data.
+- Access to eICU requires a certified training course, and authorization by
+  Ken Pierce. This dataset has no notes.
 
 
 ## Groups and Access
@@ -40,17 +52,24 @@ There are 3 relevant baseline google groups. We will use these groups as follows
    PhysioNet team, and collaborators, who are authorized to view, but not edit,
    the PhysioNet data.
 
-### Data user groups
+### Data User groups
 
-The
+Ideally for the long term, we would have all mimic certified users added
+to the `mimic-users@googlegroups.com` group, and eICU users to the
+`eICU-users@googlegroups.com` group, so that they may make their own projects
+and query the data whenever they want at their own expense.
 
 
 ### Limited Duration Events
 
-For datathons and the HST class,
+For datathons and the HST class, a google group, and project will be made for
+all participants to share. The project will be able to make queries via bigquery
+or download the flat files, and will be charged. Google has agreed to give
+credit for the first N events for these projects.
 
-
-
+ie. For the fall HST-953 class, there is the google group: `hst-953-2018@googlegroups.com`
+who all the class members should be added to, and a project that will be
+created for them.
 
 
 # Uploading Data
@@ -69,6 +88,13 @@ does, for each dataset (mimiciii_demo, mimiciii_clinical, mimiciii_notes, eICU):
 Before calling this script, set the two variables near the top of the script:
 `DATA_DIR` and `BILLING_ACCOUNT`. This script calls the `upload_data.sh` script
 for each dataset using the appropriate variables.
+- Within the `DATA_DIR` directory on your local computer, there should be
+  subdirectories: `eICU`, `mimiciii_clinical`, `mimiciii_demo`, and
+  `mimiciii_notes`. `mimiciii_clinical` should contain all the zipped csvs
+  except the NOTEEVENTS one, which should be moved to `mimiciii_notes`. Also,
+  `mimiciii_demo` should not have the NOTEEVENTS file (which is empty anyway).
+- The billing account ID is for the `physionet-build` project.
+
 
 # Rules
 
