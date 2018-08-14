@@ -78,8 +78,12 @@ After creating the data hosting project (`physionet-data`) and the auditing
 project (`physionet-auditing`), we must upload the data to the data hosting
 project.
 
-Call the `upload_all_data.sh` script to upload all four datasets. This script
-does, for each dataset (mimiciii_demo, mimiciii_clinical, mimiciii_notes, eICU):
+Call the `upload_all_data.sh` script to upload all four datasets. The script
+should be called from this directory due to the relative paths of the bqschemas
+and such. Call as follows: `./scripts/upload_all_data.sh`
+
+This script does, for each dataset (mimiciii_demo, mimiciii_clinical,
+mimiciii_notes, eICU):
 - create a bucket
 - upload zipped csvs to bucket
 - create bigquery dataset
