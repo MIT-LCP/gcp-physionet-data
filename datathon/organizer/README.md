@@ -103,5 +103,6 @@ for each dataset using the appropriate variables.
 # Rules
 
 - DO NOT clog the `physionet-data` project with unnecessary buckets and tables,
-  including tests and backups. If you want to figure out how gcp works, create
-  your own projects using your own account.
+  including tests and backups. Or if you create test projects or datasets,
+  DELETE THEM immediately after you are done. Otherwise, create your own
+  projects using your own account.
